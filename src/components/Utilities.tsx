@@ -24,9 +24,7 @@ function Utilities() {
   }
 
   const { copiedText } = useSelector(selectText);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(copiedText);
-  }
+  const handleCopy = () => { navigator.clipboard.writeText(copiedText) }
 
   return (
     <section id='utilities'>

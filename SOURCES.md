@@ -17,10 +17,6 @@ typescript
 <br>Jun 2025
 <br><https://www.typescriptlang.org/download/>
 
-Sample project
-<br>Jun 2025
-<br><https://sandipsaha597.github.io/Sample-text-generator-React-app/>
-
 Lorem Ipsum API
 <br>Jun 2025
 <br><https://www.api-ninjas.com/api/loremipsum>

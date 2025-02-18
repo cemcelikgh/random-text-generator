@@ -2,7 +2,7 @@
 
 import { selectText, setCopTex } from "@/lib/features/textSlice";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 function Display() {
@@ -12,7 +12,7 @@ function Display() {
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  function fetchText(parNum: string) {
+  const fetchText = useCallback((parNum: string) => {
     setLoading(true);
     fetch(`https://api.api-ninjas.com/v1/loremipsum?paragraphs=${parNum}`, {
       method: 'GET',
@@ -42,8 +42,8 @@ function Display() {
         }
       })
       .catch(error => { console.error('Fetch Error: ', error) })
-      .finally(() => { setLoading(false)} );
-  }
+      .finally(() => { setLoading(false) });
+  }, [textFormat, dispatch])
 
   useEffect(() => {
     if (textFormat === 'regular') {
@@ -53,15 +53,12 @@ function Display() {
     } else {
       const arrangedHtmlText = text.split('\n').slice(0, -1)
         .map((innTex: string) => `<p>\n${innTex}\n</p>\n`).join('');
-      console.log(arrangedHtmlText);
       setText(arrangedHtmlText);
       dispatch(setCopTex(arrangedHtmlText));
     }
-  }, [textFormat]);
+  }, [textFormat, dispatch]); // don't use 'text' in dependencies
 
-  useEffect(() => {
-    fetchText(paragraphNumber)
-  }, [paragraphNumber]);
+  useEffect(() => { fetchText(paragraphNumber) }, [paragraphNumber, fetchText]);
 
   return (
     loading
