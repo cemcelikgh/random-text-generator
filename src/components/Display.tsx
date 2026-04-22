@@ -15,21 +15,18 @@ function Display() {
 
     setLoading(true);
 
-    fetch(`https://api.api-ninjas.com/v1/loremipsum?paragraphs=${parNum}`,
-      {
-        method: 'GET',
-        headers: {
-        'X-Api-Key': process.env.NEXT_PUBLIC_LOR_IPS_API_KEY as string,
-        'Content-Type': 'application/json',
-        },
-      }
-    ).then(response => {
+    fetch(`/.netlify/functions/loremIpsum?parNum=${parNum}`)
+    .then(response => {
       if(!response.ok) {
-        throw new Error('Fetch failed: ' + response.statusText);
+        throw new Error('Could not fetch the random text.');
       };
       return response.json();
-    }).then(json => {
-      const arrangedTextArr = json.text.split('\n').slice(0, -1)
+    }).then(data => {
+        const text = data?.text;
+        if (!text) {
+          throw new Error('Could not retrieve the text data.');
+        };
+      const arrangedTextArr = text.split('\n').slice(0, -1)
         .map((innTex: string) => `    ${innTex}\n`);
       if (textFormat === 'regular') {
         const arrangedText = arrangedTextArr.join('');

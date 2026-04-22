@@ -17,6 +17,10 @@ typescript
 <br>Apr 2026
 <br><https://www.typescriptlang.org/download/>
 
+@netlify/functions
+<br>Apr 2026
+<br><https://docs.netlify.com/build/functions/get-started/>
+
 Lorem Ipsum API
 <br>Jun 2025
 <br><https://www.api-ninjas.com/api/loremipsum>
