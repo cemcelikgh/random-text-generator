@@ -6,7 +6,7 @@ export const textSlice = createSlice({
   initialState: {
     paragraphNumber: '4',
     textFormat: 'regular',
-    copiedText: ''
+    copiedText: '',
   },
   reducers: {
     setParNum: (state, action: PayloadAction<string>) => {
@@ -17,12 +17,10 @@ export const textSlice = createSlice({
     },
     setCopTex: (state, action: PayloadAction<string>) => {
       state.copiedText = action.payload;
-    }
-  }
-})
+    },
+  },
+});
 
 export const { setParNum, setTexFor, setCopTex } = textSlice.actions;
-
 export const selectText = (state: RootState) => state.text;
-
 export default textSlice.reducer;

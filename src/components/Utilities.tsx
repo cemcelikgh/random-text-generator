@@ -2,29 +2,29 @@
 
 import { selectText, setParNum, setTexFor }
   from '@/lib/features/textSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks';
 import ChangeTheme from '@/utils/ChangeTheme';
 
 function Utilities() {
 
-  const { paragraphNumber } = useSelector(selectText);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { paragraphNumber } = useAppSelector(selectText);
+  const { textFormat, copiedText } = useAppSelector(selectText);
+  
   const handleNumInpCha = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
     if (/^\d+$/.test(input) && 0 < Number(input) &&  Number(input) < 100) {
       dispatch(setParNum(input));
     } else if (input === "") {
-      dispatch(setParNum(input));
-    }
-  }
+      dispatch(setParNum("1"));
+    };
+  };
 
-  const { textFormat } = useSelector(selectText);
   const handleSelInpCha = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setTexFor(e.target.value));
-  }
+  };
 
-  const { copiedText } = useSelector(selectText);
-  const handleCopy = () => { navigator.clipboard.writeText(copiedText) }
+  const handleCopy = () => { navigator.clipboard.writeText(copiedText) };
 
   return (
     <section id='utilities'>
@@ -52,7 +52,8 @@ function Utilities() {
       </button>
       <ChangeTheme />
     </section>
-  )
+  );
+
 }
 
 export default Utilities;
