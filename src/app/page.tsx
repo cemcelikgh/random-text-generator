@@ -1,7 +1,7 @@
 import Utilities from "@/components/Utilities";
 import Display from "@/components/Display";
 
-export default function Home() {
+function Home() {
   return (
     <main>
       <h1>Random Text Generator</h1>
@@ -10,3 +10,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default Home;
