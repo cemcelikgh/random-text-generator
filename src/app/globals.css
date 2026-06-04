@@ -18,28 +18,14 @@
   }
 }
 
-.light-theme {
-  --background: #ffffff;
-  --foreground: #171717;
-  --colour-one: #ebebeb;
-  --colour-two: #666666;
-  --color-thre: #171717;
-  --color-four: #ededed;
-}
-
-.dark-theme {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --colour-one: #454545;
-  --colour-two: #a1a1a1;
-  --color-thre: #eeeeee;
-  --color-four: #282828;
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+html {
+  color-scheme: light dark;
 }
 
 html {
@@ -59,6 +45,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.light {
+  --background: #ffffff;
+  --foreground: #171717;
+  --colour-one: #ebebeb;
+  --colour-two: #666666;
+  --color-thre: #171717;
+  --color-four: #ededed;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --colour-one: #454545;
+  --colour-two: #a1a1a1;
+  --color-thre: #eeeeee;
+  --color-four: #282828;
+}
 
 h1 {
   text-align: center;
@@ -242,7 +245,7 @@ input:checked + .switch-icon {
     padding-right: 6px;
   }
   h1 {
-    font-size: 1.4rem;
+    font-size: 22.4px;
   }
   #utilities > label {
     width: 100%;
@@ -252,11 +255,5 @@ input:checked + .switch-icon {
   }
   #text-format {
     margin-left: 12px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
   }
 }

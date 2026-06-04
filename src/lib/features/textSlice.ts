@@ -22,7 +22,5 @@ export const textSlice = createSlice({
 })
 
 export const { setParNum, setTexFor, setCopTex } = textSlice.actions;
-
 export const selectText = (state: RootState) => state.text;
-
 export default textSlice.reducer;
