@@ -1,8 +1,8 @@
 # random-text-generator
 Patika Intermediate Frontend Web Development Path Certification Task
 <br>Random Text Generator
-<br>Redux Toolkit, TypeScript, Next.js 16
+<br>Redux Toolkit, TypeScript, Next.js
 
-Display: <https://rand0m-text-generator.netlify.app/>
+Live: <https://rand0m-text-generator.netlify.app/>
 
-[![Random Text Generator Preview](./public/images/ui-previews/themes.png "Display Random Text Generator")](https://rand0m-text-generator.netlify.app/)
+[![Random Text Generator Preview](./public/themes.png "Display Random Text Generator")](https://rand0m-text-generator.netlify.app/)

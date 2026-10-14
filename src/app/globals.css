@@ -34,10 +34,6 @@ html {
 }
 
 body {
-  max-width: 1024px;
-  min-width: 283px;
-  margin: 0 auto;
-  padding: 30px 12px 15px;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
@@ -45,30 +41,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.light {
-  --background: #ffffff;
-  --foreground: #171717;
-  --colour-one: #ebebeb;
-  --colour-two: #666666;
-  --color-thre: #171717;
-  --color-four: #ededed;
-}
-
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --colour-one: #454545;
-  --colour-two: #a1a1a1;
-  --color-thre: #eeeeee;
-  --color-four: #282828;
+#container {
+  max-width: 1024px;
+  min-width: 300px;
+  margin: 0 auto;
+  padding: 30px 12px 15px;
 }
 
 h1 {
   text-align: center;
 }
 
-#utilities {
-  margin-top: 15px;
+#selectors {
+  margin-top: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
   border: 1px solid var(--colour-one);
@@ -227,27 +212,57 @@ input:checked + .switch-icon {
   }
 }
 
+.light {
+  --background: #ffffff;
+  --foreground: #171717;
+  --colour-one: #ebebeb;
+  --colour-two: #666666;
+  --color-thre: #171717;
+  --color-four: #ededed;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --colour-one: #454545;
+  --colour-two: #a1a1a1;
+  --color-thre: #eeeeee;
+  --color-four: #282828;
+}
+
 @media (width < 600px) {
-  #utilities {
+  #container {
+    padding: 20px 10px 12px;
+  }
+  h1 {
+    font-size: 30px;
+  }
+  #selectors {
+    margin-top: 15px;
     flex-wrap: wrap
   }
-  #utilities > label {
+  #selectors > label {
     width: 50%;
     max-width: 285px;
     padding-left: calc((50% - 144px) / 2);
     margin-bottom: 10px;
   }
+  #display {
+    margin-top: 12px;
+  }
 }
 
 @media (width < 400px) {
-  body {
-    padding-left: 6px;
-    padding-right: 6px;
+  #container {
+    padding: 15px 6px 10px;
+  }
+  #selectors {
+    margin-top: 10px;
   }
   h1 {
     font-size: 22.4px;
   }
-  #utilities > label {
+  #selectors > label {
     width: 100%;
     max-width: 400px;
     padding-left: calc((100% - 144px) / 2);
@@ -255,5 +270,8 @@ input:checked + .switch-icon {
   }
   #text-format {
     margin-left: 12px;
+  }
+  #display {
+    margin-top: 10px;
   }
 }

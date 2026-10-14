@@ -1,11 +1,11 @@
-import Utilities from "@/components/Utilities";
 import Display from "@/components/Display";
+import Selectors from "@/components/selectors/Selectors";
 
 function Home() {
   return (
-    <main>
+    <main id="container">
       <h1>Random Text Generator</h1>
-      <Utilities />
+      <Selectors />
       <Display />
     </main>
   );

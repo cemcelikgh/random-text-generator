@@ -1,82 +1,61 @@
 'use client';
 
-import { selectText, setCopTex } from "@/lib/features/textSlice";
+import { selectText, setArrangedText } from "@/lib/features/textSlice";
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { useCallback, useEffect, useState } from "react";
 
 function Display() {
 
-  const dispatch = useAppDispatch();
   const [text, setText] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { paragraphNumber, textFormat } = useAppSelector(selectText);
+  const [loadedParagraphNumber, setLoadedParagraphNumber] = useState('0');
+  const { paragraphNumber, textFormat, arrangedText } = useAppSelector(selectText);
+  const dispatch = useAppDispatch();
 
-  const fetchText = useCallback((parNum: string) => {
+  const loading = loadedParagraphNumber !== paragraphNumber;
 
-    setLoading(true);
+  const fetchText = useCallback((paragraphNumber: string) => {
 
     const apiKey = process.env.NEXT_PUBLIC_LOR_IPS_API_KEY;
     if (!apiKey) throw new Error('NEXT_PUBLIC_LOR_IPS_API_KEY is missing');
 
-    fetch(`https://api.api-ninjas.com/v1/loremipsum?paragraphs=${parNum}`,
-      {
-        method: 'GET',
-        headers: {
-          'X-Api-Key': apiKey,
-          'Content-Type': 'application/json'
-        }
-      }
-    ).then(response => {
-      if(!response.ok) {
-        throw new Error('Could not fetch the random text.');
-      };
+    fetch(`https://api.api-ninjas.com/v1/loremipsum?paragraphs=${paragraphNumber}`, {
+      method: 'GET',
+      headers: {
+        'X-Api-Key': apiKey,
+        'Content-Type': 'application/json',
+      },
+    }).then(response => {
+      if(!response.ok) throw new Error('Could not fetch the random text.');
       return response.json();
     }).then(data => {
-        const text = data?.text;
-        if (!text) {
-          throw new Error('Could not retrieve the text data.');
-        };
-      const arrangedTextArr = text.split('\n').slice(0, -1)
-        .map((innTex: string) => `    ${innTex}\n`);
-      if (textFormat === 'regular') {
-        const arrangedText = arrangedTextArr.join('');
-        setText(arrangedText);
-        dispatch(setCopTex(arrangedText));
-      } else {
-        const arrangedHtmlText = arrangedTextArr
-          .map((innTex: string) => `<p>\n${innTex}</p>\n`).join('');
-        setText(arrangedHtmlText);
-        dispatch(setCopTex(arrangedHtmlText));
-      };
+      const text = data?.text;
+      if (!text || typeof text !== 'string') throw new Error('Could not retrieve the text data.');
+      setText(text);
     }).catch(error => { console.error(error);
-    }).finally(() => { setLoading(false) });
+    }).finally(() => { setLoadedParagraphNumber(paragraphNumber) });
 
-  }, [textFormat, dispatch]);
+  }, []);
 
   useEffect(() => { fetchText(paragraphNumber) }, [paragraphNumber, fetchText]);
 
   useEffect(() => {
     if (textFormat === 'regular') {
-      const arrangedText = text.replace(/<\/?p>\n/g, '');
-      setText(arrangedText);
-      dispatch(setCopTex(arrangedText));
+      dispatch(setArrangedText('    ' + text.replace(/\n/g, '\n    ').slice(0, -5)));
     } else {
-      const arrangedHtmlText = text.split('\n').slice(0, -1)
-        .map((innTex) => `<p>\n${innTex}\n</p>\n`).join('');
-      setText(arrangedHtmlText);
-      dispatch(setCopTex(arrangedHtmlText));
+      const htmlTextArr = text.slice(0, -1).split('\n')
+        .map((innerText: string) => `<p>\n    ${innerText}\n</p>\n`);
+      dispatch(setArrangedText(htmlTextArr.join('').slice(0, -1)));
     };
-  }, [textFormat, dispatch]);
+  }, [textFormat, text, dispatch]);
 
-  return (
-    loading
-      ? <div className="loader-container">
-          <div className="lds-ripple"><div>
-            </div>
-              <div></div>
-            </div>
-        </div>
-      : <section id="display">{text}</section>
+  return (loading ?
+    <div className="loader-container">
+      <div className="lds-ripple">
+        <div/>
+        <div/>
+      </div>
+    </div>
+  : <section id="display">{arrangedText}</section>
   );
 
 }
