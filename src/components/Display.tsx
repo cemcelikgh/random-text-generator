@@ -14,17 +14,8 @@ function Display() {
   const loading = loadedParagraphNumber !== paragraphNumber;
 
   const fetchText = useCallback((paragraphNumber: string) => {
-
-    const apiKey = process.env.NEXT_PUBLIC_LOR_IPS_API_KEY;
-    if (!apiKey) throw new Error('NEXT_PUBLIC_LOR_IPS_API_KEY is missing');
-
-    fetch(`https://api.api-ninjas.com/v1/loremipsum?paragraphs=${paragraphNumber}`, {
-      method: 'GET',
-      headers: {
-        'X-Api-Key': apiKey,
-        'Content-Type': 'application/json',
-      },
-    }).then(response => {
+    fetch(`/.netlify/functions/loremIpsum?paragraphNumber=${paragraphNumber}`)
+    .then(response => {
       if(!response.ok) throw new Error('Could not fetch the random text.');
       return response.json();
     }).then(data => {
@@ -33,7 +24,6 @@ function Display() {
       setText(text);
     }).catch(error => { console.error(error);
     }).finally(() => { setLoadedParagraphNumber(paragraphNumber) });
-
   }, []);
 
   useEffect(() => { fetchText(paragraphNumber) }, [paragraphNumber, fetchText]);

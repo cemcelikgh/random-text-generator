@@ -21,6 +21,11 @@ eslint
 <br>May 2026
 <br><https://eslint.org/docs/latest/use/getting-started>
 
+netlify-cli
+<br>@netlify/functions
+<br>Oct 2026
+<br><https://docs.netlify.com/>
+
 Lorem Ipsum API
 <br>Jun 2025
 <br><https://www.api-ninjas.com/api/loremipsum>
